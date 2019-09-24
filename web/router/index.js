@@ -1,0 +1,2 @@
+require('./adminRoutes');
+require('./adminRoutes');
