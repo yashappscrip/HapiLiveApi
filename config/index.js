@@ -1,1 +1,2 @@
-module.exports = require("./db");
+const db =  require("./db");
+module.exports = {dbClient:dbClient};
