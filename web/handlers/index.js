@@ -1,18 +1,20 @@
 var mongoutil = require('../../config/db')
-var collection
+var db;
 mongoutil.connectDB(()=>{
-    var db =  mongoutil.getDB();
-    collection = db.collection('userDetails');
+    db =  mongoutil.getDB();
+    // console.log(db)
+    // collection = db.Collection('userDetails');
 });
 /**
  * Common handler for user and admin both
  */
 const commonHandlers = {
     signinHandler:(req,res)=>{
-        console.log("Asas"+collection.findOne({}));
+        console.log("Asas"+db);
         return res.response({
             response: "Success!",
-            message : "Sign in successfully!"
+            message : "Sign in successfully!",
+            db:db
         });
     },
     detailsHandler:(req,res)=>{}
