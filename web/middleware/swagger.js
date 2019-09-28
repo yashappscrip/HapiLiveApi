@@ -2,7 +2,7 @@ const dotenv = require('dotenv/config');
 const options = {
   grouping: "tags",
   payloadType: "form",
-  host: process.env.HOST || "localhost",
+  host: process.env.SWAGGER_HOST || "localhost:4000",
   info: {
     contact: {
       name: "Yash Chandani",

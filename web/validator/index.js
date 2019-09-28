@@ -14,7 +14,12 @@ const adminRegisterValidator = {
             .max(10)
             .min(10)
             .required()
-            .description("Phone No.")
+            .description("Phone No."),
+    password: joi.string()
+                .regex(/^[a-zA-Z0-9]{3,30}$/)
+                .required()
+                .description("Password"),
+    confirmPassword: joi.ref('password')
 };
 const userRegisterValidator = {
     firstName: joi.string()
@@ -31,7 +36,12 @@ const userRegisterValidator = {
             .max(10)
             .min(10)
             .required()
-            .description("Phone No.")
+            .description("Phone No."),
+    password: joi.string()
+                .regex(/^[a-zA-Z0-9]{3,30}$/)
+                .required()
+                .description("Password"),
+    confirmPassword: joi.ref('password')
 };
 const loginValidator = {
     email : joi.string()

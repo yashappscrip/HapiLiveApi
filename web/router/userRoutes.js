@@ -52,7 +52,7 @@ const routes = ()=>[{
             payload: updateValidator,
             failAction: joiError
         },
-        handler:handler.commonHandlers.signinHandler
+        handler:handler.commonHandlers.updateHandler
     }
 },{
     method : 'POST',

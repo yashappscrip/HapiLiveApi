@@ -6,6 +6,8 @@ const Hapi = require('hapi'),
       vision = require('@hapi/vision'),
       goodConsole = require('./middleware/good'),
       good = require('@hapi/good');
+var mongoutil = require('../config/db')
+var db;
 const start =  (host,port)=>{
     return new Promise( async (resolve,reject)=>{
         const server = Hapi.server({port:port,host:host});
@@ -15,6 +17,11 @@ const start =  (host,port)=>{
             return reject(err);
         });
         console.log(`Server started at: ${server.info.uri}`);
+        mongoutil.connectDB().then((msg)=>{
+            console.log("Db established!");
+        }).catch((err)=>{
+            console.log("Error while connection with db!");
+        });
         resolve();
     });
 };

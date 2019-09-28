@@ -14,21 +14,22 @@ const client = new MongoClient(uri, { useNewUrlParser: true });
 //         }
 //     },
 //     getConnectionObject: connection;
-// };let _db
+// };
+let _db,collection;
 
- const connectDB = async (callback) => {
+ const connectDB = async () => {
     try {
         MongoClient.connect(uri, (err, db) => {
-            _db = db
-            return callback(err)
+            _db = db.db('userAdmin');
+            collection = _db.collection('userDetails');
         })
     } catch (e) {
         throw e
     }
 }
 
-const getDB = () => _db;
+const getCollection = () => collection;
 
 const disconnectDB = () => _db.close();
 
-module.exports = { connectDB, getDB, disconnectDB };
+module.exports = { connectDB, getCollection, disconnectDB };
