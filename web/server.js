@@ -1,6 +1,5 @@
 const Hapi = require('hapi'),
-      userRoutes = require('./router').userRoutes,
-      adminRoutes = require('./router').adminRoutes,
+      route = require('./router')
       swagger = require('./middleware/swagger'),
       inert = require('@hapi/inert'),
       vision = require('@hapi/vision'),
@@ -11,7 +10,7 @@ var db;
 const start =  (host,port)=>{
     return new Promise( async (resolve,reject)=>{
         const server = Hapi.server({port:port,host:host});
-        server.route(userRoutes(),adminRoutes());
+        server.route(route);
         await server.register([swagger].concat(inert,vision));
         server.start((err)=>{
             return reject(err);

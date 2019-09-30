@@ -18,7 +18,13 @@ const registerModel = async (dbInstance,email,firstName,lastName,phone,pwd)=>{
     });
     return returnData;
 };
+const addTokenModel = async (dbInstance,email,token)=>{
+    let data = dbInstance.updateOne({email:email},{$set:{authToken:token}});
+    return data;
+    // await data.then((data2)=>{}).catch((err)=>{});
+};
 module.exports={
     signinModel:signinModel,
-    registerModel:registerModel
+    registerModel:registerModel,
+    addTokenModel:addTokenModel
 };

@@ -18,8 +18,8 @@ const adminRegisterValidator = {
     password: joi.string()
                 .regex(/^[a-zA-Z0-9]{3,30}$/)
                 .required()
-                .description("Password"),
-    confirmPassword: joi.ref('password')
+                .description("Password")
+    // confirmPassword: joi.ref('password')
 };
 const userRegisterValidator = {
     firstName: joi.string()
@@ -32,7 +32,7 @@ const userRegisterValidator = {
             .email({ minDomainSegments: 2, tlds: { allow: ['com', 'net', 'in'] } })
             .required()
             .description("User Name"),
-    phone: joi.number()
+    phone: joi.string()
             .max(10)
             .min(10)
             .required()
@@ -40,8 +40,8 @@ const userRegisterValidator = {
     password: joi.string()
                 .regex(/^[a-zA-Z0-9]{3,30}$/)
                 .required()
-                .description("Password"),
-    confirmPassword: joi.ref('password')
+                .description("Password")
+    // confirmPassword: joi.ref('password')
 };
 const loginValidator = {
     email : joi.string()
@@ -54,6 +54,9 @@ const loginValidator = {
                 .description("Password")
 };
 const updateValidator = {
+    authorization: joi.string()
+                    .required()
+                    .description("Authorization Token"),
     firstName: joi.string()
                 .optional()
                 .description("Admin First Name"),
@@ -71,10 +74,16 @@ const detailsValidator = {
                 .required()
                 .description("User Email"),
 };
+const validateHeader ={
+    authorization : joi.string()
+                        .required()
+                        .description("Authorization Token")
+};
 module.exports={
     adminRegisterValidator:adminRegisterValidator,
     userRegisterValidator:userRegisterValidator,
     loginValidator:loginValidator,
     updateValidator:updateValidator,
-    detailsValidator:detailsValidator
+    detailsValidator:detailsValidator,
+    validateHeader:validateHeader
 };

@@ -3,7 +3,8 @@ const validator = require('../validator');
 const handler = require('../handlers');
 const userRegisterValidator = validator.userRegisterValidator;
 const loginValidator = validator.loginValidator;
-const updateValidator= validator.updateValidator;
+const userUpdateValidator= validator.updateValidator;
+const validateHeader = validator.validateHeader;
 const detailsValidator = validator.detailsValidator;
 /**
  * This function will be called on getting joi error.
@@ -12,17 +13,17 @@ const detailsValidator = validator.detailsValidator;
  * @param {*} error 
  */
 const joiError = (req,res,error)=>{
-    // console.log(error);
-    return error.isJoi? res.response(error.details[0]).takeover():res.response().takeover();
+    console.log(error);
+    return error.isJoi? res.response(error.details[0]).takeover().code(400):res.response().takeover().code(400);
 };
 /**
  * User routes will be exported
  */
-const routes = ()=>[{
+const routes = [{
     method : 'POST',
     path : '/register/user',
     options:{
-        tags:['api','User','Register'],
+        tags:['api','User'],
         description :"User Register API",
         validate:{
             payload: userRegisterValidator,
@@ -44,12 +45,12 @@ const routes = ()=>[{
     }
 },{
     method : 'PUT',
-    path : '/update/{id}',
+    path : '/User/update',
     options:{
-        tags:['api','Signin'],
-        description :"Signin API",
+        tags:['api','Update'],
+        description :"Update API",
         validate:{
-            payload: updateValidator,
+            payload: userUpdateValidator,
             failAction: joiError
         },
         handler:handler.commonHandlers.updateHandler
@@ -64,15 +65,15 @@ const routes = ()=>[{
     }
 },{
     method : 'GET',
-    path : '/details/{id}',
+    path : '/details',
     options:{
-        tags:['api','User','Details'],
+        tags:['api','User'],
         description :"Fetch Details API",
         validate:{
-            query: detailsValidator,
+            query: validateHeader,
             failAction: joiError
         },
-        handler: handler.commonHandlers.detailsHandler
+        handler: handler.userHandlers.detailsHandler
     }
 }];
 module.exports= routes;

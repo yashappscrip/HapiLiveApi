@@ -14,11 +14,12 @@ const joiError = (req,res,error)=>{
 /**
  * Admin routes will be exported
  */
-const routes = ()=>[{
+const routes =[
+    {
     method : 'POST',
     path : '/register/admin',
     options:{
-        tags:['api','Admin','Register'],
+        tags:['api','Admin'],
         description :"Admin Register API",
         validate:{
             payload:{
@@ -27,6 +28,22 @@ const routes = ()=>[{
             failAction: joiError
         },
         handler: handler.adminHandlers.registerHandler
+    }
+},
+{
+    method : 'GET',
+    path : '/details/{id}',
+    options:{
+        tags:['api','Admin'],
+        description :"Fetch Details API",
+        // headers:{
+        //     authorizationToken: handler._token 
+        // },
+        // validate:{
+        //     query: detailsValidator,
+        //     failAction: joiError
+        // },
+        handler: handler.adminHandlers.detailsHandler
     }
 }];
 module.exports= routes;
